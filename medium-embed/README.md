@@ -1,0 +1,96 @@
+# vue-rss-blog
+An embeddable to pull an RSS feed into your website. This can be used to embed a Medium blog on a separate website. Testing has only been done on the medium RSS Feed.
+
+It uses the https://api.rss2json.com/v1/api.json service to retrieve and convert the RSS to JSON.
+
+## How To Use?   
+You have to add a div tag in your html code where you want to embed the blog posts list/grid view, as shown in the example.
+You can reference to the Source Files in 2 ways:
+You can reference a `<link href="/retainable.css">` just before closing the head tag, and a `<script src="/retainable.js"></script>` just before closing the body tag.   
+
+### Example1
+```html
+<head>
+    ---
+    <link href="/retainable.css"> 
+</head>
+
+<body>
+    ---
+    <div id="retainable-rss-embed"
+        data-rss="https://medium.com/feed/js-dojo, https://medium.com/feed/vue-mastery"
+        data-maxcols="3"
+        data-layout="slider"
+        data-poststyle="inline"
+        data-readmore="Read the rest"
+        data-buttonclass="btn btn-primary"
+        data-offset="-100">
+    </div>
+    ---
+    <script src="/retainable.js"></script>
+</body>
+```
+
+Alternatively there is an example of a widget style script in the demo folder, that injects the CSS & Script tags into the page (you still need to add the entry point div).
+
+### Example2
+```html
+<body>
+    ---
+    <div id="retainable-rss-embed"
+        data-rss="https://medium.com/feed/js-dojo, https://medium.com/feed/vue-mastery"
+        data-maxcols="3"
+        data-layout="slider"
+        data-poststyle="inline"
+        data-readmore="Read the rest"
+        data-buttonclass="btn btn-primary"
+        data-offset="-100">
+    </div>
+    ---
+    <script src="retainable-rss-embed.js"></script> 
+</body>
+```
+
+## Views
+The widget has two distinct views
+### Index view
+This is the way your posts are shown in summary.
+
+**Grid view** will display the thumbnail, the title and the author with a "read more" link. It uses maxcols to define the number of columns.
+
+**Slider view** will display a carousel of posts with the same details as grid. It uses maxcols to define how many posts to show at one time.
+### Post view
+**Inline view** will show the full feed inline and replace the index view, there is pagination and the option to return to the index.
+
+**Modal view** will display the full article in a full screen modal, there is pagination and an x to close the modal.
+
+**External view** wil open a new tab and with the source link.
+
+##  Options
+| Option | Default | Reqiuired | Details
+|---|--|--|------|
+|id|n/a|Yes|You must set the value of your entry point's id to "retainable-rss-embed".|
+|data-rss|n/a|Yes|You must provide at least one valid url to the RSS endpoint, multiple rss feeds can be combined with a comma separated list. You can also choose how many posts fetch for each endpoint just adding the value after the feed url separated by a pipe: if no value is given all the posts will be fetched.|
+|data-maxcols|2|Optional|must be an interger of 1, 2, 3, 4, 6 or 12 and controls the number of cols display in the index view|
+|data-layout|grid|Optional|Styles the index of available posts, can be set to "grid" or "slider"|
+|data-poststyle|modal|Optional|The style of posts when you click on an excerpt in the index can be set to one of: "modal", "inline" or "external", external opens the post's source with a target of _blank|
+|data-buttonclass|  |Optional|Space separated list of classes to apply to the read more button|
+|data-readmore|Read more|Optional|Text to show on the read more button|
+|data-offset|0|Optional|If you have a fixed header then you can set a negative offset integer for scrolling when the posts are shown inline e.g. -100 (converts to pixels)|
+
+## How to find your RSS feed on medium.com
+Here’s a quick guide to finding RSS feeds for different things on Medium.
+- **Medium users’ RSS feed**   
+In a URL, type in “/feed/” before where the username appears:
+`medium.com/feed/@username`   
+Example: `https://medium.com/feed/@jjpryor`
+
+- **Medium publications**   
+In the URL bar, type in “/feed/” before the publication name:
+`medium.com/feed/publication-name`   
+Example: `https://medium.com/feed/feedium` 
+
+- **Custom domain Medium publication**   
+Find the Medium publication with a custom domain, for example “https://towardsdatascience.com/”. Then add “/feed” to the end of the URL.
+`customdomain.com/feed`   
+Example: `https://towardsdatascience.com/feed`
